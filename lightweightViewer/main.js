@@ -76,7 +76,7 @@
   csT.pan.activate(element, 2);
   csT.zoom.activate(element, 4);
 
-  var actionsObject = {
+  var toolsObject = {
     active: '',
     deactivateActive: function () {
       if (this.active) {
@@ -89,7 +89,7 @@
         csT.wwwc.enable(element);
         csT.wwwc.activate(element, 1);
 
-        actionsObject.active = 'windowLevel';
+        toolsObject.active = 'windowLevel';
       },
       deactivate: function () {
         csT.wwwc.disable(element);
@@ -101,7 +101,7 @@
         csT.simpleAngle.enable(element);
         csT.simpleAngle.activate(element, 1);
 
-        actionsObject.active = 'angle';
+        toolsObject.active = 'angle';
       },
       deactivate: function () {
         csT.simpleAngle.disable(element);
@@ -110,19 +110,41 @@
     }
   };
 
+  var commandsObject = {
+    clearAll: function () {
+      var toolStateManager = csT.getElementToolStateManager(element);
+
+      toolStateManager.clear(element)
+      cs.updateImage(element);
+    }
+  }
+
   cs.loadImage('example://1').then(function(image) {
     cs.displayImage(element, image);
   });
 
-  $('.viewer-tools').on('click', 'a', function (evt) {
+  $('.viewer-tools').on('click', 'a[data-tool]', function (evt) {
     $('.active').removeClass('active');
 
     var $element = $(this);
     var tool = $element.attr('data-tool');
 
-    actionsObject.deactivateActive();
-    actionsObject[tool].activate();
+    toolsObject.deactivateActive();
+    toolsObject[tool].activate();
 
     $element.addClass('active');
+  });
+
+  $('.viewer-tools').on('click', 'a[data-command]', function (evt) {
+    var $element = $(this);
+    var tool = $element.attr('data-command');
+
+    commandsObject[tool]();
+
+    $element.addClass('active');
+
+    setTimeout(function() {
+      $element.removeClass('active');
+    }, 300);
   });
 })(cornerstone, cornerstoneTools);
