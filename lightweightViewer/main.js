@@ -76,6 +76,12 @@
   csT.pan.activate(element, 2);
   csT.zoom.activate(element, 4);
 
+  element.oncontextmenu = function (evt) {
+    evt.preventDefault();
+
+    return false;
+  };
+
   var toolsObject = {
     active: '',
     deactivateActive: function () {
