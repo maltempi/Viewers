@@ -119,6 +119,18 @@
         csT.length.disable(element);
         csT.length.deactivate(element, 1);
       }
+    },
+    probe: {
+      activate: function () {
+        csT.probe.enable(element);
+        csT.probe.activate(element, 1);
+
+        toolsObject.active = 'probe';
+      },
+      deactivate: function () {
+        csT.probe.disable(element);
+        csT.probe.deactivate(element, 1);
+      }
     }
   };
 
