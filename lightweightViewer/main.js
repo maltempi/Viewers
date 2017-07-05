@@ -113,8 +113,14 @@
   var commandsObject = {
     clearAll: function () {
       var toolStateManager = csT.getElementToolStateManager(element);
+      var enabledElemet = cs.getEnabledElement(element);
+      var viewport = cornerstone.getViewport(element);
 
-      toolStateManager.clear(element)
+      viewport.voi.windowWidth = enabledElemet.image.windowWidth;
+      viewport.voi.windowCenter = enabledElemet.image.windowCenter;
+      cornerstone.setViewport(element, viewport);
+
+      toolStateManager.clear(element);
       cs.updateImage(element);
     }
   }
