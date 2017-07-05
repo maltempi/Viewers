@@ -19,6 +19,14 @@ body {
   flex: 0;
 }
 
+.viewer-wrapper .left-sidebar .viewer-tools{
+  width: 200px;
+}
+
+.viewer-wrapper .left-sidebar .viewer-tools a.active {
+  color: #efefef;
+}
+
 .viewer-wrapper #conerstoneViewport {
   flex: 1;
 }

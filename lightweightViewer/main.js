@@ -73,11 +73,56 @@
 
   cs.enable(element);
   csT.mouseInput.enable(element);
-  csT.wwwc.enable(element);
-  csT.wwwc.activate(element, 1);
+  csT.pan.activate(element, 2);
+  csT.zoom.activate(element, 4);
+
+  var actionsObject = {
+    active: '',
+    deactivateActive: function () {
+      if (this.active) {
+        this[this.active].deactivate();
+        this.active = '';
+      }
+    },
+    windowLevel: {
+      activate: function () {
+        csT.wwwc.enable(element);
+        csT.wwwc.activate(element, 1);
+
+        actionsObject.active = 'windowLevel';
+      },
+      deactivate: function () {
+        csT.wwwc.disable(element);
+        csT.wwwc.deactivate(element, 1);  
+      }
+    },
+    angle: {
+      activate: function () {
+        csT.simpleAngle.enable(element);
+        csT.simpleAngle.activate(element, 1);
+
+        actionsObject.active = 'angle';
+      },
+      deactivate: function () {
+        csT.simpleAngle.disable(element);
+        csT.simpleAngle.deactivate(element, 1);
+      }
+    }
+  };
 
   cs.loadImage('example://1').then(function(image) {
     cs.displayImage(element, image);
   });
 
+  $('.viewer-tools').on('click', 'a', function (evt) {
+    $('.active').removeClass('active');
+
+    var $element = $(this);
+    var tool = $element.attr('data-tool');
+
+    actionsObject.deactivateActive();
+    actionsObject[tool].activate();
+
+    $element.addClass('active');
+  });
 })(cornerstone, cornerstoneTools);
