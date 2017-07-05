@@ -1,0 +1,24 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.full-page {
+  width: 100%;
+  height: 100%;
+}
+
+.viewer-wrapper {
+  display: flex;
+}
+
+.viewer-wrapper .left-sidebar {
+  flex: 0;
+}
+
+.viewer-wrapper #conerstoneViewport {
+  flex: 1;
+}
