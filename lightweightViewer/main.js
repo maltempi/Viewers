@@ -107,6 +107,18 @@
         csT.simpleAngle.disable(element);
         csT.simpleAngle.deactivate(element, 1);
       }
+    },
+    length: {
+      activate: function () {
+        csT.length.enable(element);
+        csT.length.activate(element, 1);
+
+        toolsObject.active = 'length';
+      },
+      deactivate: function () {
+        csT.length.disable(element);
+        csT.length.deactivate(element, 1);
+      }
     }
   };
 
