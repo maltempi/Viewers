@@ -85,6 +85,7 @@
   csT.addStackStateManager(element, ['stack']);
   csT.addToolState(element, 'stack', stack);
   csT.stackScrollWheel.activate(element);
+  //csT.scrollIndicator.enable(element);
 
   element.oncontextmenu = function (evt) {
     evt.preventDefault();
@@ -147,12 +148,23 @@
         csT.probe.disable(element);
         csT.probe.deactivate(element, 1);
       }
+    },
+    stackScroll: {
+      activate: function () {
+        csT.stackScroll.enable(element);
+        csT.stackScroll.activate(element, 1);
+
+        toolsObject.active = 'stackScroll';
+      },
+      deactivate: function () {
+        csT.stackScroll.disable(element);
+        csT.stackScroll.deactivate(element, 1);
+      }
     }
   };
 
   var commandsObject = {
     clearAll: function () {
-      var toolStateManager = csT.getElementToolStateManager(element);
       var enabledElemet = cs.getEnabledElement(element);
       var viewport = cornerstone.getViewport(element);
 
@@ -160,7 +172,7 @@
       viewport.voi.windowCenter = enabledElemet.image.windowCenter;
       cornerstone.setViewport(element, viewport);
 
-      toolStateManager.clear(element);
+      csT.globalImageIdSpecificToolStateManager.clear(element);
       cs.updateImage(element);
     }
   };
