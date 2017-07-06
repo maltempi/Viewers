@@ -27,6 +27,31 @@ body {
   color: #efefef;
 }
 
-.viewer-wrapper #conerstoneViewport {
+.viewer-wrapper .viewport {
   flex: 1;
+  position: relative;
+}
+
+.viewer-wrapper #conerstoneViewport {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.viewer-wrapper #conerstoneViewport canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.scroll {
+  background-color: #ff0000;
+  height: 10px;
+  bottom: 0px;
+  position: absolute;
+  width: 100%;
+}
+
+.scroll .thumb {
+  background-color: #ffffff;
+  height: 10px;
 }

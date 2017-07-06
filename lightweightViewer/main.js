@@ -75,6 +75,10 @@
     imageIds: ['example://1', 'example://2']
   };
 
+  $(window).on('resize', function () {
+    cs.resize(element, true);
+  });
+
   cs.enable(element);
   csT.mouseInput.enable(element);
   csT.pan.activate(element, 2);
