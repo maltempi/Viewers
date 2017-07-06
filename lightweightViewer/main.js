@@ -70,11 +70,21 @@
 
   // THE LOARDER
   var element = document.getElementById('conerstoneViewport');
+  var stack = {
+    currentImageIdIndex: 0,
+    imageIds: ['example://1', 'example://2']
+  };
 
   cs.enable(element);
   csT.mouseInput.enable(element);
   csT.pan.activate(element, 2);
   csT.zoom.activate(element, 4);
+  csT.mouseWheelInput.enable(element);
+
+  // Setting the stack tool
+  csT.addStackStateManager(element, ['stack']);
+  csT.addToolState(element, 'stack', stack);
+  csT.stackScrollWheel.activate(element);
 
   element.oncontextmenu = function (evt) {
     evt.preventDefault();
@@ -153,7 +163,7 @@
       toolStateManager.clear(element);
       cs.updateImage(element);
     }
-  }
+  };
 
   cs.loadImage('example://1').then(function(image) {
     cs.displayImage(element, image);
