@@ -70,13 +70,24 @@
 
   // THE LOARDER
   var element = document.getElementById('conerstoneViewport');
+  var $thumb = $('.thumb');
   var stack = {
     currentImageIdIndex: 0,
-    imageIds: ['example://1', 'example://2']
+    imageIds: ['example://1', 'example://2', 'example://1']
   };
+
+  $thumb.css('width', (100/stack.imageIds.length) + '%');
 
   $(window).on('resize', function () {
     cs.resize(element, true);
+  });
+
+  $(element).on('CornerstoneNewImage', function () {
+    var currentIndex = stack.currentImageIdIndex;
+
+    $thumb.css({
+      'margin-left': ((100/stack.imageIds.length)*currentIndex) + '%'
+    });
   });
 
   cs.enable(element);
