@@ -7,7 +7,22 @@
   </head>
   <body class="full-page">
 
-  <div class="viewer-wrapper full-page">
+  <div class="login-wrapper">
+    <form>
+      <div class="form-input">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username"/>
+      </div>
+      <div class="form-input">
+        <label for="username">Password:</label>
+        <input type="password" name="password" id="password"/>
+      </div>
+
+      <button class="submit" type="submit">Login</button>
+    </form>
+  </div>
+
+  <div class="viewer-wrapper full-page invisible">
     <div class="left-sidebar">
       <div class="viewer-tools">
         <a href="/#" data-tool="wwwc">W/L</a>
