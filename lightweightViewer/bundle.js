@@ -101,30 +101,32 @@ module.exports = {
 };
 
 },{}],3:[function(require,module,exports){
-var Files = require('./files');
-var Tools = require('./tools');
-var Commands = require('./commands');
+(function () {
+  var Files = require('./files');
+  var Tools = require('./tools');
+  var Commands = require('./commands');
 
-cornerstone.registerImageLoader('example', Files.getExampleImage);
+  cornerstone.registerImageLoader('example', Files.getExampleImage);
 
-// THE LOARDER
-var element = document.getElementById('conerstoneViewport');
+  // THE LOARDER
+  var element = document.getElementById('conerstoneViewport');
 
-Tools.element = element;
-Commands.element = element;
+  Tools.element = element;
+  Commands.element = element;
 
-$(window).on('resize', function () {
-  cornerstone.resize(element, true);
-});
+  $(window).on('resize', function () {
+    cornerstone.resize(element, true);
+  });
 
-cornerstone.enable(element);
+  cornerstone.enable(element);
 
-Tools.initTools(Files.imagesIds);
-Commands.initCommands();
+  Tools.initTools(Files.imagesIds);
+  Commands.initCommands();
 
-cornerstone.loadImage(Files.imagesIds[0]).then(function(image) {
-  cornerstone.displayImage(element, image);
-});
+  cornerstone.loadImage(Files.imagesIds[0]).then(function(image) {
+    cornerstone.displayImage(element, image);
+  });
+})();
 
 },{"./commands":1,"./files":2,"./tools":4}],4:[function(require,module,exports){
 module.exports = {
