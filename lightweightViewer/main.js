@@ -1,6 +1,7 @@
 (function () {
   var Files = require('./files');
   var Tools = require('./tools');
+  var Login = require('./login');
   var Commands = require('./commands');
 
   cornerstone.registerImageLoader('example', Files.getExampleImage);

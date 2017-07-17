@@ -101,9 +101,17 @@ module.exports = {
 };
 
 },{}],3:[function(require,module,exports){
+$('.login-wrapper form').on('submit', function (evt) {
+  evt.preventDefault();
+
+  
+});
+
+},{}],4:[function(require,module,exports){
 (function () {
   var Files = require('./files');
   var Tools = require('./tools');
+  var Login = require('./login');
   var Commands = require('./commands');
 
   cornerstone.registerImageLoader('example', Files.getExampleImage);
@@ -128,7 +136,7 @@ module.exports = {
   });
 })();
 
-},{"./commands":1,"./files":2,"./tools":4}],4:[function(require,module,exports){
+},{"./commands":1,"./files":2,"./login":3,"./tools":5}],5:[function(require,module,exports){
 module.exports = {
   active: '',
   toolsSelector: '.viewer-tools',
@@ -207,4 +215,4 @@ module.exports = {
   }
 };
 
-},{}]},{},[3]);
+},{}]},{},[4]);
