@@ -60,6 +60,7 @@ var image1PixelData = getPixelData(image108Base64);
 var image2PixelData = getPixelData(image109Base64);
 
 module.exports = {
+  imagesIds: ['example://1', 'example://2', 'example://1'],
   getExampleImage: function (imageId) {
     var width = 256;
     var height = 256;
@@ -108,53 +109,22 @@ cornerstone.registerImageLoader('example', Files.getExampleImage);
 
 // THE LOARDER
 var element = document.getElementById('conerstoneViewport');
-var $thumb = $('.thumb');
-var stack = {
-  currentImageIdIndex: 0,
-  imageIds: ['example://1', 'example://2', 'example://1']
-};
 
 Tools.element = element;
 Commands.element = element;
-
-$thumb.css('width', (100/stack.imageIds.length) + '%');
 
 $(window).on('resize', function () {
   cornerstone.resize(element, true);
 });
 
-$(element).on('CornerstoneNewImage', function () {
-  var currentIndex = stack.currentImageIdIndex;
-
-  $thumb.css({
-    'margin-left': ((100/stack.imageIds.length)*currentIndex) + '%'
-  });
-});
-
 cornerstone.enable(element);
-cornerstoneTools.mouseInput.enable(element);
-cornerstoneTools.pan.activate(element, 2);
-cornerstoneTools.zoom.activate(element, 4);
-cornerstoneTools.mouseWheelInput.enable(element);
 
-// Setting the stack tool
-cornerstoneTools.addStackStateManager(element, ['stack']);
-cornerstoneTools.addToolState(element, 'stack', stack);
-cornerstoneTools.stackScrollWheel.activate(element);
+Tools.initTools(Files.imagesIds);
+Commands.initCommands();
 
-// removing default context menu
-element.oncontextmenu = function (evt) {
-  evt.preventDefault();
-
-  return false;
-};
-
-cornerstone.loadImage('example://1').then(function(image) {
+cornerstone.loadImage(Files.imagesIds[0]).then(function(image) {
   cornerstone.displayImage(element, image);
 });
-
-Tools.initTools();
-Commands.initCommands();
 
 },{"./commands":1,"./files":2,"./tools":4}],4:[function(require,module,exports){
 module.exports = {
@@ -184,8 +154,43 @@ module.exports = {
     cornerstoneTools[tool].disable(this.element);
     cornerstoneTools[tool].deactivate(this.element, 1);
   },
-  initTools: function () {
+  initStackTool: function (imageIds) {
+    var $thumb = $('.thumb');
+    var stack = {
+      currentImageIdIndex: 0,
+      imageIds: imageIds
+    };
+
+    cornerstoneTools.addStackStateManager(this.element, ['stack']);
+    cornerstoneTools.addToolState(this.element, 'stack', stack);
+    cornerstoneTools.stackScrollWheel.activate(this.element);
+
+    $thumb.css('width', (100/stack.imageIds.length) + '%');
+
+    $(this.element).on('CornerstoneNewImage', function () {
+      var currentIndex = stack.currentImageIdIndex;
+
+      $thumb.css({
+        'margin-left': ((100/stack.imageIds.length)*currentIndex) + '%'
+      });
+    });
+  },
+  initTools: function (imageIds) {
     var self = this;
+
+    cornerstoneTools.mouseInput.enable(this.element);
+    cornerstoneTools.pan.activate(this.element, 2);
+    cornerstoneTools.zoom.activate(this.element, 4);
+    cornerstoneTools.mouseWheelInput.enable(this.element);
+
+    this.initStackTool(imageIds);
+
+    // removing default context menu
+    this.element.oncontextmenu = function (evt) {
+      evt.preventDefault();
+
+      return false;
+    };
 
     $(this.toolsSelector).on('click', 'a[data-tool]', function (evt) {
       $('.active').removeClass('active');

@@ -27,6 +27,7 @@ var image1PixelData = getPixelData(image108Base64);
 var image2PixelData = getPixelData(image109Base64);
 
 module.exports = {
+  imagesIds: ['example://1', 'example://2', 'example://1'],
   getExampleImage: function (imageId) {
     var width = 256;
     var height = 256;
